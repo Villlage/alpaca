@@ -1,0 +1,15 @@
+{
+  "environments": {
+    "test": {
+      "env": {
+        "FLASK_ENV": "testing",
+        "CI_NAME": "heroku",
+        "DATABASE_URL": "postgres://localhost/postgres"
+      },
+      "scripts": {
+        "test": "pytest --cov-config=.coveragerc --cov-report xml --cov=controller --cov=models --cov=services --cov=third_party controller services models third_party;"
+      },
+      "addons": ["heroku-postgresql:in-dyno"]
+    }
+  }
+}

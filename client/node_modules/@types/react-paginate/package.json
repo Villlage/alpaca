@@ -1,0 +1,60 @@
+{
+    "name": "@types/react-paginate",
+    "version": "6.2.1",
+    "description": "TypeScript definitions for react-paginate",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Simon Hartcher",
+            "url": "https://github.com/deevus",
+            "githubUsername": "deevus"
+        },
+        {
+            "name": "Wouter Hardeman",
+            "url": "https://github.com/wouterhardeman",
+            "githubUsername": "wouterhardeman"
+        },
+        {
+            "name": "pegel03",
+            "url": "https://github.com/pegel03",
+            "githubUsername": "pegel03"
+        },
+        {
+            "name": "Simon Archer",
+            "url": "https://github.com/archy-bold",
+            "githubUsername": "archy-bold"
+        },
+        {
+            "name": "Yasunori Ohoka",
+            "url": "https://github.com/yasupeke",
+            "githubUsername": "yasupeke"
+        },
+        {
+            "name": "Shingo Sato",
+            "url": "https://github.com/sugarshin",
+            "githubUsername": "sugarshin"
+        },
+        {
+            "name": "SPWizard01",
+            "url": "https://github.com/SPWizard01",
+            "githubUsername": "SPWizard01"
+        },
+        {
+            "name": "Kevin Rambaud",
+            "url": "https://github.com/kevinrambaud",
+            "githubUsername": "kevinrambaud"
+        }
+    ],
+    "main": "",
+    "types": "index",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "typesPublisherContentHash": "a38b7fffedcea472b83d782c239d24de46d62f74d628f53c42904fafdfe9c0a6",
+    "typeScriptVersion": "2.8"
+}
