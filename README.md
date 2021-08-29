@@ -1,4 +1,4 @@
-## Village
+## alpaca
 
 ### Prerequisites
 
@@ -11,7 +11,7 @@ PostgreSQL 11.5
 
 ## Clone the repo
 ```
-git clone git@github.com:village/village.git
+git clone git@github.com:alpaca/alpaca.git
 ```
 
 ## Use Python 3.7.5
@@ -35,7 +35,7 @@ brew install postgresql
 Then install the dependicies (make sure postgresql is installed before):
 
 ```
-cd village
+cd alpaca
 pipenv install --dev
 ```
 
@@ -52,14 +52,14 @@ pyenv shell 3.7.5
 ## Developing on the backend
 
 ### Database connection:
-create a village database:
+create a alpaca database:
 don't have postgresql installed? Refer to the section above titled "Installing Postgresql"
 
 ```
 brew services start postgresql
 psql -d template1
-create database village;
-\c village ;
+create database alpaca;
+\c alpaca ;
 ```
 
 If you see an `address already in use error` when trying to run `brew services start postgresql`, try
@@ -75,7 +75,7 @@ FLASK_ENV=development pipenv run flask db upgrade
 
 ### Start local server
 ```
-cd village
+cd alpaca
 FLASK_ENV=development pipenv run flask run
 ```
 * go to: http://localhost:5000/

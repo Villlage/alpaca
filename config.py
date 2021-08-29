@@ -18,7 +18,7 @@ class Config(object):
 class LocalConfig(Config):
     DEBUG = True
     LOG_LEVEL = "DEBUG"
-    SQLALCHEMY_DATABASE_URI = "postgres://localhost/village"
+    SQLALCHEMY_DATABASE_URI = "postgres://localhost/alpaca"
 
 
 class TestingConfig(Config):
@@ -26,7 +26,7 @@ class TestingConfig(Config):
     TESTING = True
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL", "postgresql://localhost/village_test"
+        "DATABASE_URL", "postgresql://localhost/alpaca_test"
     )
 
 
