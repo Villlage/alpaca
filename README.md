@@ -3,7 +3,7 @@
 ### Prerequisites
 
 ```
-python3 (3.7.5)
+python3 (3.7.11)
 pyenv
 pipenv
 PostgreSQL 11.5
@@ -14,12 +14,12 @@ PostgreSQL 11.5
 git clone git@github.com:alpaca/alpaca.git
 ```
 
-## Use Python 3.7.5
+## Use Python 3.7.11
 ```
 brew install pyenv
 brew install pipenv
-pyenv install 3.7.5
-pyenv shell 3.7.5
+pyenv install 3.7.11
+pyenv shell 3.7.11
 ```
 
 ## Installing Postgresql
@@ -41,11 +41,11 @@ pipenv install --dev
 
 If you get an error regarding zlib, following instructions here: https://github.com/jiansoung/issues-list/issues/13
 
-Add the following lines to always be in python 3.7.5 to your .bash_profile and .bashrc file
+Add the following lines to always be in python 3.7.11 to your .bash_profile and .bashrc file
 
 ```
 eval "$(pyenv init -)"
-pyenv shell 3.7.5
+pyenv shell 3.7.11
 ```
 
 

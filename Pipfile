@@ -31,4 +31,4 @@ marshmallow = "==3.2.2"
 plaid-python = "==3.4.0"
 
 [requires]
-python_version = "python-3.7.11"
+python_version = "3.7.11"
