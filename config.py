@@ -17,6 +17,9 @@ class Config(object):
     PLAID_PUBLIC_KEY = os.getenv("PLAID_PUBLIC_KEY", "a004a070f0629da694fbae916414f3")
     PLAID_ENV = os.getenv("PLAID_ENV", "sandbox")
 
+    ALPACA_API_KEY = os.getenv("ALPACA_API_KEY", "API KEY")
+    ALPACA_SECRET_KEY = os.getenv("ALPACA_SECRET_KEY", "SHHHH")
+
 
 class LocalConfig(Config):
     DEBUG = True
