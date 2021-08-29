@@ -68,3 +68,4 @@ from models.plaid_account import PlaidAccount
 import controller.user_routes
 import controller.react_routes
 import controller.plaid_routes
+import controller.trading_routes
