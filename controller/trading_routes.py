@@ -6,6 +6,8 @@ import json
 from app import app, config 
 from controller.common import login_required
 
+from services.trading_service import get_postitions, sell_stock, buy_stock
+
 BASE_URL = "https://paper-api.alpaca.markets"
 ORDERS_URL = "{}/v2/orders".format(BASE_URL)
 HEADERS = {'APCA-API-KEY-ID': config.ALPACA_API_KEY, 'APCA-API-SECRET-KEY': config.ALPACA_SECRET_KEY}
@@ -54,3 +56,24 @@ def status():
         'ALPACA_API_KEY': config.ALPACA_API_KEY,
         'message': 'Operational I am',
     }
+
+
+@app.route('/buy', methods=['POST'])
+def buy():
+    webhook_message = request.json
+    symbol = webhook_message['ticker']
+    response = buy_stock(symbol, qty=1.0)
+    return jsonify(response), 200
+
+@app.route('/sell', methods=['POST'])
+def sell():
+    webhook_message = request.json
+    symbol = webhook_message['ticker']
+    response = sell_stock(symbol, qty=1.0)
+    return jsonify(response), 200
+
+
+@app.route('/portfolio', methods=['GET'])
+def portfolio():
+    postitions = get_postitions()
+    return jsonify(postitions), 200
