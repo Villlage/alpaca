@@ -176,7 +176,7 @@ Then run:
 FLASK_ENV=testing pipenv run pytest .
 ```
 
-or
+or, you can do:
 
 ```
 FLASK_ENV=testing pipenv run pytest controller services models third_party tests recommendation_engine
@@ -192,3 +192,4 @@ pip install pre-commit
 pre-commit install
 ```
 enjoy
+
