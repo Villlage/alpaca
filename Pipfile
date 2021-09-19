@@ -29,6 +29,7 @@ pytest-cov = "==2.8.1"
 kombu = "==4.3.0"
 marshmallow = "==3.2.2"
 plaid-python = "==3.4.0"
+alpaca-trade-api = "*"
 
 [requires]
 python_version = "3.7.11"
