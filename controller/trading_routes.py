@@ -61,14 +61,14 @@ def status():
 @app.route('/buy', methods=['POST'])
 def buy():
     webhook_message = request.json
-    symbol = webhook_message['ticker']
+    symbol = str(webhook_message['ticker'])
     response = buy_stock(symbol, qty=1.0)
     return jsonify(response), 200
 
 @app.route('/sell', methods=['POST'])
 def sell():
     webhook_message = request.json
-    symbol = webhook_message['ticker']
+    symbol = str(webhook_message['ticker'])
     response = sell_stock(symbol, qty=1.0)
     return jsonify(response), 200
 
