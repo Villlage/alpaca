@@ -1,7 +1,7 @@
 # type: ignore
 import pytest
 from tests.factories import faker, UserFactory
-from services.trading_service import buy_stock, sell_stock, get_postitions
+from services.trading_service import buy_stock, sell_stock, get_postitions, close_position
 from unittest.mock import MagicMock
 
 class TestBuySell:
@@ -24,6 +24,21 @@ class TestBuySell:
         res = sell_stock(symbol=symbol, qty=qty)
         assert res == ""
 
+class TestBuySell:
+    @pytest.fixture()
+    def mock_alpaca_api(self, mocker) -> None:
+        return mocker.patch(
+            "services.trading_service.api.close_position",
+            return_value="",
+        )
+
+    def test_close_position(self, mock_alpaca_api) -> None:
+        symbol = "AAPL"
+        res = close_position(symbol=symbol)
+        assert res == ""
+
+
+
 class TestPortfolio:
     @pytest.fixture()
     def mock_alpaca_api(self, mocker) -> None:
@@ -32,6 +47,6 @@ class TestPortfolio:
             return_value=[MagicMock(qty=1.0, symbol="AAPL")]
         )
 
-    def test_get_postitions(self, mock_alpaca_api):
+    def test_get_postitions(self, mock_alpaca_api) -> None:
         res = get_postitions()
         assert res == ["1.0 shares of AAPL"]
