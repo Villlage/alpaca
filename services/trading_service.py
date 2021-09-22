@@ -1,7 +1,7 @@
 import alpaca_trade_api as tradeapi
 from app import app, config 
 
-api = tradeapi.REST(key_id=config.ALPACA_API_KEY, secret_key=config.ALPACA_SECRET_KEY, api_version='v2') 
+api = tradeapi.REST(key_id=config.ALPACA_API_KEY, secret_key=config.ALPACA_SECRET_KEY, api_version='v2', base_url=config.ALPCA_API_BASE_URL)
 
 def get_postitions():
 	# Get our position in AAPL example: 
@@ -44,3 +44,9 @@ def sell_stock(symbol:str, qty:float=1.0):
 	return res
 
 
+
+def close_position(symbol:str):
+	# Close a position altogther
+	position = api.close_position(symbol)
+
+	return position

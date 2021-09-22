@@ -17,8 +17,9 @@ class Config(object):
     PLAID_PUBLIC_KEY = os.getenv("PLAID_PUBLIC_KEY", "a004a070f0629da694fbae916414f3")
     PLAID_ENV = os.getenv("PLAID_ENV", "sandbox")
 
-    ALPACA_API_KEY = os.getenv("ALPACA_API_KEY", "API KEY")
-    ALPACA_SECRET_KEY = os.getenv("ALPACA_SECRET_KEY", "SHHHH")
+    ALPACA_API_KEY = os.getenv("ALPACA_API_KEY", "PKFI72LSSACG5790KTRZ")
+    ALPACA_SECRET_KEY = os.getenv("ALPACA_SECRET_KEY", "LqKs5XK32j9BrGcv4yJHI0pNxZTe3dr5qam590Er")
+    ALPCA_API_BASE_URL = os.getenv("ALPCA_API_BASE_URL", "https://paper-api.alpaca.markets")
 
 
 class LocalConfig(Config):

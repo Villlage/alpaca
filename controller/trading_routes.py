@@ -6,7 +6,7 @@ import json
 from app import app, config 
 from controller.common import login_required
 
-from services.trading_service import get_postitions, sell_stock, buy_stock
+from services.trading_service import get_postitions, sell_stock, buy_stock, close_position
 
 BASE_URL = "https://paper-api.alpaca.markets"
 ORDERS_URL = "{}/v2/orders".format(BASE_URL)
@@ -70,6 +70,14 @@ def sell():
     webhook_message = request.json
     symbol = str(webhook_message['ticker'])
     response = sell_stock(symbol, qty=1.0)
+    return jsonify(response), 200
+
+
+@app.route('/close', methods=['POST'])
+def close():
+    webhook_message = request.json
+    symbol = str(webhook_message['ticker'])
+    response = close_position(symbol)
     return jsonify(response), 200
 
 

@@ -68,6 +68,26 @@ class TestSell:
 
             assert resp.status_code == 200
 
+
+class TestClosePosition:
+    @pytest.fixture()
+    def mock_close_position(self, mocker) -> None:
+        return mocker.patch(
+            "controller.trading_routes.close_position",
+            return_value="",
+        )
+
+    def test_close_position(self, mock_close_position):
+        with app.test_client() as client:
+            resp = client.post(
+                "/close",
+                data=json.dumps(dict(ticker="GOOG", close=123)),
+                content_type="application/json",
+            )
+
+            assert resp.status_code == 200
+
+
 class TestPortfolio:
     @pytest.fixture()
     def mock_portfolio(self, mocker) -> None:
