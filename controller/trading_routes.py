@@ -6,7 +6,7 @@ import json
 from app import app, config 
 from controller.common import login_required
 
-from services.trading_service import get_postitions, sell_stock, buy_stock, close_position
+from services.trading_service import get_postitions, sell_stock, buy_stock, close_position, buy_fractional_stock
 
 BASE_URL = "https://paper-api.alpaca.markets"
 ORDERS_URL = "{}/v2/orders".format(BASE_URL)
@@ -62,15 +62,23 @@ def status():
 def buy():
     webhook_message = request.json
     symbol = str(webhook_message['ticker'])
-    response = buy_stock(symbol, qty=1.0)
-    return jsonify(response), 200
+    buy_stock(symbol, qty=1.0)
+    return jsonify(f"successfully bought {symbol}"), 200
+
+@app.route('/buy-fractional', methods=['POST'])
+def buy_fractional():
+    webhook_message = request.json
+    symbol = str(webhook_message['ticker'])
+    buy_fractional_stock(symbol, dollar_amount=20.0)
+    return jsonify(f"successfully bought {symbol}"), 200
+
 
 @app.route('/sell', methods=['POST'])
 def sell():
     webhook_message = request.json
     symbol = str(webhook_message['ticker'])
     response = sell_stock(symbol, qty=1.0)
-    return jsonify(response), 200
+    return jsonify(f"successfully sold {symbol}"), 200
 
 
 @app.route('/close', methods=['POST'])
@@ -78,7 +86,7 @@ def close():
     webhook_message = request.json
     symbol = str(webhook_message['ticker'])
     response = close_position(symbol)
-    return jsonify(response), 200
+    return jsonify(f"successfully closed {symbol}"), 200
 
 
 @app.route('/portfolio', methods=['GET'])
