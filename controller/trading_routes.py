@@ -65,10 +65,12 @@ def buy():
     buy_stock(symbol, qty=1.0)
     return jsonify(f"successfully bought {symbol}"), 200
 
+
 @app.route('/buy-fractional', methods=['POST'])
 def buy_fractional():
     webhook_message = request.json
     symbol = str(webhook_message['ticker'])
+    symbol = "GOOG"
     buy_fractional_stock(symbol, dollar_amount=20.0)
     return jsonify(f"successfully bought {symbol}"), 200
 

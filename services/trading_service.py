@@ -38,7 +38,7 @@ def buy_fractional_stock(symbol:str, dollar_amount:float):
 	    notional=dollar_amount,
 	    side='buy',
 	    type='market',
-	    time_in_force='gtc'
+	    time_in_force='day'
 	)
 
 	return res
