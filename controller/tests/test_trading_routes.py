@@ -39,10 +39,27 @@ class TestBuy:
             return_value="",
         )
 
+    @pytest.fixture()
+    def mock_buy_stock_fractional(self, mocker) -> None:
+        return mocker.patch(
+            "controller.trading_routes.buy_fractional_stock",
+            return_value="",
+        )
+
     def test_buy_stock(self, mock_buy_stock):
         with app.test_client() as client:
             resp = client.post(
                 "/buy",
+                data=json.dumps(dict(ticker="GOOG", close=123)),
+                content_type="application/json",
+            )
+
+            assert resp.status_code == 200
+
+    def test_buy_stock_fractional(self, mock_buy_stock_fractional):
+        with app.test_client() as client:
+            resp = client.post(
+                "/buy-fractional",
                 data=json.dumps(dict(ticker="GOOG", close=123)),
                 content_type="application/json",
             )

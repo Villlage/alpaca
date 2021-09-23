@@ -31,6 +31,19 @@ def buy_stock(symbol:str, qty:float=1.0):
 	return res
 
 
+def buy_fractional_stock(symbol:str, dollar_amount:float):
+	# Submit a market order to buy a stock
+	res = api.submit_order(
+	    symbol=symbol,
+	    notional=dollar_amount,
+	    side='buy',
+	    type='market',
+	    time_in_force='gtc'
+	)
+
+	return res
+
+
 def sell_stock(symbol:str, qty:float=1.0):
 	# Submit a market order to sell a stock
 	res = api.submit_order(
