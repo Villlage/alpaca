@@ -20,7 +20,7 @@ class Config(object):
     ALPACA_API_KEY = os.getenv("ALPACA_API_KEY", "PKFI72LSSACG5790KTRZ")
     ALPACA_SECRET_KEY = os.getenv("ALPACA_SECRET_KEY", "LqKs5XK32j9BrGcv4yJHI0pNxZTe3dr5qam590Er")
     ALPCA_API_BASE_URL = os.getenv("ALPCA_API_BASE_URL", "https://paper-api.alpaca.markets")
-
+    TELEGRAM_KEY = os.getenv("TELEGRAM_KEY", "2020412177:AAF5gHMeZCoisqcsLJKeJ44Yh9_5QCS2tUo")
 
 class LocalConfig(Config):
     DEBUG = True
@@ -35,6 +35,7 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL", "postgresql://localhost/alpaca_test"
     )
+    TELEGRAM_KEY = os.getenv("TELEGRAM_KEY", "Nope")
 
 
 class StagingConfig(Config):

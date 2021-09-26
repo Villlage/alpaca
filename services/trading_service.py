@@ -1,7 +1,16 @@
 import alpaca_trade_api as tradeapi
-from app import app, config 
+from app import app, config, PRODUCTION, TESTING
+import telebot
 
 api = tradeapi.REST(key_id=config.ALPACA_API_KEY, secret_key=config.ALPACA_SECRET_KEY, api_version='v2', base_url=config.ALPCA_API_BASE_URL)
+telgram_bot = telebot.TeleBot(config.TELEGRAM_KEY)
+
+def send_message(text) -> None:
+	if app.env not in [PRODUCTION, TESTING]:
+		return None
+
+
+	telgram_bot.send_message(text=text, chat_id=505895394)
 
 def get_postitions():
 	# Get our position in AAPL example: 
@@ -27,6 +36,7 @@ def buy_stock(symbol:str, qty:float=1.0):
 	    type='market',
 	    time_in_force='gtc'
 	)
+	send_message(text=f"I bought {qty} shares of {symbol}")
 
 	return res
 
@@ -41,6 +51,8 @@ def buy_fractional_stock(symbol:str, dollar_amount:float):
 	    time_in_force='day'
 	)
 
+	send_message(text=f'I bought ${dollar_amount} of {symbol}')
+
 	return res
 
 
@@ -54,12 +66,18 @@ def sell_stock(symbol:str, qty:float=1.0):
 	    time_in_force='gtc',
 	)
 
+	send_message(text=f'I sold {qty} shares of {symbol}')
+
 	return res
 
 
 
 def close_position(symbol:str):
 	# Close a position altogther
-	position = api.close_position(symbol)
-
+	try:
+		position = api.close_position(symbol)
+		send_message(text=f'I closed {symbol}. Quack')
+	except Exception as error:
+		send_message(text=f'I tried closing {symbol} but there is none')
+	
 	return position
