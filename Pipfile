@@ -33,6 +33,8 @@ alpaca-trade-api = "*"
 pytelegrambotapi = "*"
 itsdangerous = "*"
 pillow = "*"
+tzlocal = "~=2.0"
+
 
 [requires]
 python_version = "3.7.11"
