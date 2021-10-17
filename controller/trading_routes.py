@@ -95,3 +95,9 @@ def close():
 def portfolio():
     postitions = get_postitions()
     return jsonify(postitions), 200
+
+@app.route('/check', methods=['GET'])
+def check():
+    return {"check": 123}, 200
+
+

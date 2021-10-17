@@ -31,6 +31,14 @@ class TestTradeRoutes:
             assert resp.json['message'] == 'Operational I am'
 
 
+    def test_check_route(self):
+        with app.test_client() as client:
+            resp = client.get("/check")
+            assert resp.status_code == 200
+            assert resp.json == {'check': 123}
+            
+            
+
 class TestBuy:
     @pytest.fixture()
     def mock_buy_stock(self, mocker) -> None:
