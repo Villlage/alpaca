@@ -6,7 +6,7 @@ import json
 from app import app, config 
 from controller.common import login_required
 
-from services.trading_service import get_postitions, sell_stock, buy_stock, close_position, buy_fractional_stock
+from services.trading_service import get_postitions, sell_stock, buy_stock, close_position, buy_fractional_stock, parse_stocks_email, buy_stocks
 
 BASE_URL = "https://paper-api.alpaca.markets"
 ORDERS_URL = "{}/v2/orders".format(BASE_URL)
@@ -100,4 +100,11 @@ def portfolio():
 def check():
     return {"check": 123}, 200
 
+
+@app.route('/email', methods=['POST'])
+def email():
+    webhook_message = json.loads(request.get_data().decode("utf-8"))
+    stocks = parse_stocks_email(webhook_message['text'])
+    buy_stocks(stocks, dollar_amount=20.0)
+    return jsonify(f"successfully bought {stocks}"), 200
 

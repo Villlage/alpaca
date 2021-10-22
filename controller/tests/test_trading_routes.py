@@ -128,3 +128,9 @@ class TestPortfolio:
             assert resp.status_code == 200
             assert resp.json == [{'AAPL':123}, {'GOOG':321}]
 
+
+    def test_parsing_email(self, mock_portfolio):
+        from controller.trading_routes import parse_it
+        stocks = parse_it('New MACD\n\nCheck out the following new tickers: NASDAQ:BGFV ( https://www.tradingview.com/chart/?symbol=NASDAQ%3ABGFV ) , NASDAQ:CENT ( https://www.tradingview.com/chart/?symbol=NASDAQ%3ACENT ) , NASDAQ:CMRX ( https://www.tradingview.com/chart/?symbol=NASDAQ%3ACMRX ) , NASDAQ:CRSR ( https://www.tradingview.com/chart/?symbol=NASDAQ%3ACRSR ) , NYSE:ELF ( https://www.tradingview.com/chart/?symbol=NYSE%3AELF ) , NYSE:OLO ( https://www.tradingview.com/chart/?symbol=NYSE%3AOLO ) , NYSE:SHAK ( https://www.tradingview.com/chart/?symbol=NYSE%3ASHAK )')
+        assert stocks == ['BGFV', 'CENT', 'CMRX', 'CRSR', 'ELF', 'OLO', 'SHAK']
+
