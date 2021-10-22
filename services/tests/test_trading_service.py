@@ -1,7 +1,7 @@
 # type: ignore
 import pytest
 from tests.factories import faker, UserFactory
-from services.trading_service import buy_stock, sell_stock, get_postitions, close_position, buy_fractional_stock
+from services.trading_service import buy_stock, sell_stock, get_postitions, close_position, buy_fractional_stock, parse_stocks_email
 from unittest.mock import MagicMock
 
 @pytest.fixture()
@@ -65,3 +65,9 @@ class TestPortfolio:
     def test_get_postitions(self, mock_alpaca_api, mock_telegram_api) -> None:
         res = get_postitions()
         assert res == ["1.0 shares of AAPL"]
+
+class TestEmail:
+    def test_parsing_email(self):
+        stocks = parse_stocks_email('New MACD\n\nCheck out the following new tickers: NASDAQ:BGFV ( https://www.tradingview.com/chart/?symbol=NASDAQ%3ABGFV ) , NASDAQ:CENT ( https://www.tradingview.com/chart/?symbol=NASDAQ%3ACENT ) , NASDAQ:CMRX ( https://www.tradingview.com/chart/?symbol=NASDAQ%3ACMRX ) , NASDAQ:CRSR ( https://www.tradingview.com/chart/?symbol=NASDAQ%3ACRSR ) , NYSE:ELF ( https://www.tradingview.com/chart/?symbol=NYSE%3AELF ) , NYSE:OLO ( https://www.tradingview.com/chart/?symbol=NYSE%3AOLO ) , NYSE:SHAK ( https://www.tradingview.com/chart/?symbol=NYSE%3ASHAK )')
+        assert stocks == ['BGFV', 'CENT', 'CMRX', 'CRSR', 'ELF', 'OLO', 'SHAK']
+
