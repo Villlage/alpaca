@@ -7,6 +7,7 @@ from app import app, config
 from controller.common import login_required
 
 from services.trading_service import get_postitions, sell_stock, buy_stock, close_position, buy_fractional_stock, parse_stocks_email, buy_stocks
+from third_party.plaid.gmail_client import get_stocks_data
 
 BASE_URL = "https://paper-api.alpaca.markets"
 ORDERS_URL = "{}/v2/orders".format(BASE_URL)
@@ -101,10 +102,8 @@ def check():
     return {"check": 123}, 200
 
 
-@app.route('/email', methods=['POST'])
+@app.route('/email', methods=['GET', 'POST'])
 def email():
-    webhook_message = json.loads(request.get_data().decode("utf-8"))
-    stocks = parse_stocks_email(webhook_message['text'])
+    stocks = get_stocks_data()
     buy_stocks(stocks, dollar_amount=20.0)
     return jsonify(f"successfully bought {stocks}"), 200
-
