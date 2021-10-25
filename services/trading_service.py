@@ -1,15 +1,18 @@
+import math
 from typing import List
 import alpaca_trade_api as tradeapi
-from app import app, config, PRODUCTION, TESTING, logger
+from app import app, config, PRODUCTION, TESTING, STAGING, DEVELOPMENT, logger
 import telebot
 
 api = tradeapi.REST(key_id=config.ALPACA_API_KEY, secret_key=config.ALPACA_SECRET_KEY, api_version='v2', base_url=config.ALPCA_API_BASE_URL)
 telgram_bot = telebot.TeleBot(config.TELEGRAM_KEY)
 
 def send_message(text) -> None:
-    if app.env not in [PRODUCTION, TESTING]:
+    if app.env == DEVELOPMENT:
         return None
 
+    if app.env in [STAGING, TESTING]:
+        text = f"{app.env}: " + text
 
     telgram_bot.send_message(text=text, chat_id=505895394)
 
@@ -41,16 +44,70 @@ def buy_stock(symbol:str, qty:float=1.0):
 
     return res
 
+def get_asset(symbol: str):
+    try: 
+        res = api.get_asset(symbol)
+        return res
+    except Exception as error:
+        logger.error(error)
+
+
+def get_last_quote(symbol: str):
+    try: 
+        res = api.get_last_quote(symbol)
+        return res
+    except Exception as error:
+        logger.error(error)
+
+
+def get_last_trade(symbol: str):
+    try: 
+        res = api.get_last_trade(symbol)
+        return res
+    except Exception as error:
+        logger.error(error)
+
 
 def buy_fractional_stock(symbol:str, dollar_amount:float):
+    """
+    check if we can but the asset and it's fractionable.
+    If not, buy it regularly
+    """
+    try: 
+        asset = get_asset(symbol)
+        
+        trade = get_last_trade(symbol)
+        price = trade.price
+
+        if not asset.fractionable:
+            if price > dollar_amount or price == 0:
+                logger.error(f"Price {price} is more than the dollar amount {dollar_amount}, but we can't buy the stock in fractions")
+                return None
+
+            quantity = math.floor(dollar_amount / price) or 1 
+            res = buy_stock(symbol, quantity)
+        else:
+            res = buy_fractional_stock_api(symbol=symbol, dollar_amount=dollar_amount)        
+
+        return res
+    except Exception as error:
+        logger.error(error)
+
+
+
+def buy_fractional_stock_api(symbol:str, dollar_amount:float):
     # Submit a market order to buy a stock
-    res = api.submit_order(
-        symbol=symbol,
-        notional=dollar_amount,
-        side='buy',
-        type='market',
-        time_in_force='day'
-    )
+    try: 
+        res = api.submit_order(
+            symbol=symbol,
+            notional=dollar_amount,
+            side='buy',
+            type='market',
+            time_in_force='day'
+        )
+    except Exception as error:
+        print("something")
+
 
     send_message(text=f'I bought ${dollar_amount} of {symbol}')
 
