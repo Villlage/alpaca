@@ -28,7 +28,7 @@ def parse_stocks_email_to_stocks_v2(text:str):
     text_with_stock_info = re.findall('Check out the following new tickers:(.*)', text)
 
     # taking the stock names
-    stocks_text = re.findall(r'break-word;">(.*?)<', text_with_stock_info[1])
+    stocks_text = re.findall(r'break-word;">(.*?)<', text_with_stock_info[0])
 
     # going over the stock names and extracing them from the text
     for stock_text in stocks_text:
